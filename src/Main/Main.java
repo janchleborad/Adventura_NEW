@@ -13,6 +13,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
@@ -30,29 +33,61 @@ import uiText.TextoveRozhrani;
  * @author Honysek
  */
 public class Main extends Application {
+    private TextArea centralText;
+    private IHra hra;
+    private TextField zadejPrikazTextArea;
 
     @Override
     public void start(Stage primaryStage) {
-        IHra hra = new Hra();
+        hra = new Hra();
         BorderPane borderPane = new BorderPane();
 
-        Text centralText = new Text();
+        centralText = new TextArea();
         centralText.setText(hra.vratUvitani());
+        centralText.setEditable(false);
         borderPane.setCenter(centralText);
         
-        Label zadejPrikaz = new Label("Zadej příkaz");
-        zadejPrikaz.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        Label zadejPrikazLabel = new Label("Zadej příkaz");
+        zadejPrikazLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
         
+        zadejPrikazTextArea = new TextField("...");
+        zadejPrikazTextArea.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String vstupniPrikaz = zadejPrikazTextArea.getText ();
+                String odpovedHry = hra.zpracujPrikaz(vstupniPrikaz);
+            
+                centralText.appendText("\n" + vstupniPrikaz + "\n");
+                centralText.appendText("\n" + odpovedHry + "\n");
+                zadejPrikazTextArea.setText("");
+                
+                if(hra.konecHry()) {
+                    zadejPrikazTextArea.setEditable(false);
+                    centralText.appendText(hra.vratEpilog());
+                }
+            }  
+        });
+        
+        //Obrázek s mapou
+        FlowPane obtazekFlowPane = new FlowPane();
+        obrazekFlowPane.setPrefSize(200,200);
+        ImageView obrazekImageView = new ImageView(new Image(Main.class.getResourceAsStream("/zdroje/mapa.jpg"), 200, 200, false, true));
+        obtazekFlowPane.setAlignment(Pos.CENTER);
+        obrazekFlowPane.setBottom(dolniLista);
+        
+        //dolnílišta s elementy
         FlowPane dolniLista = new FlowPane();
         dolniLista.setAlignment(Pos.CENTER);
-        dolniLista.getChildren().add(zadejPrikaz);
+        dolniLista.getChildren().addAll(zadejPrikazLabel, zadejPrikazTextArea);
+        borderPane.setLeft(obrazekFlowPane);
         borderPane.setBottom(dolniLista);
 
-        Scene scene = new Scene(borderPane, 300, 250);
+        Scene scene = new Scene(borderPane, 700, 500);
 
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
         primaryStage.show();
+        zadejPrikazTextArea.requestFocus();
     }
 
     /**
@@ -60,7 +95,7 @@ public class Main extends Application {
      */
     public static void main(String[] args) {
         if (args.length == 0) {
-            launch(args);
+            launch(args); //zavolá metodu Start
         } else {
             if (args[0].equals("-txt")) {
                 IHra hra = new Hra();
