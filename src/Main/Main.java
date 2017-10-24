@@ -69,11 +69,11 @@ public class Main extends Application {
         });
         
         //Obrázek s mapou
-        FlowPane obtazekFlowPane = new FlowPane();
+        FlowPane obrazekFlowPane = new FlowPane();
         obrazekFlowPane.setPrefSize(200,200);
         ImageView obrazekImageView = new ImageView(new Image(Main.class.getResourceAsStream("/zdroje/mapa.jpg"), 200, 200, false, true));
-        obtazekFlowPane.setAlignment(Pos.CENTER);
-        obrazekFlowPane.setBottom(dolniLista);
+        obrazekFlowPane.setAlignment(Pos.CENTER);
+        obrazekFlowPane.getChildren().add(obrazekImageView);
         
         //dolnílišta s elementy
         FlowPane dolniLista = new FlowPane();
