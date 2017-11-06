@@ -1,5 +1,10 @@
 package logika;
 
+import java.util.ArrayList;
+import java.util.List;
+import utils.Observer;
+import utils.Subject;
+
 /**
  *  Class HerniPlan - třída představující mapu a stav adventury.
  * 
@@ -11,9 +16,12 @@ package logika;
  *@author     Michael Kolling, Lubos Pavlicek, Jarmila Pavlickova, Jan Chleborád
  *@version    pro školní rok 2015/2016, upraveno prosinec 2016
  */
-public class HerniPlan {
+public class HerniPlan implements Subject {
+    
     private Prostor aktualniProstor;
     private Batoh batoh;
+    
+    private List<Observer> listObserveru = new ArrayList<Observer>();
 
     /**
      *  Konstruktor který vytváří jednotlivé prostory a propojuje je pomocí východů.
@@ -31,31 +39,31 @@ public class HerniPlan {
     private void zalozProstoryHry() {
         // vytvářejí se jednotlivé prostory
         Prostor trnitaStezka = new Prostor("trnitá_stezka","\nAkorát jsme na trnité stezce, podle mapy, kteou mi dal táta,\n"
-                                                         + "bychom se tudy měli prodrat k silu.\n");
+                                                         + "bychom se tudy měli prodrat k silu.\n", 110,50);
         Prostor silo = new Prostor("silo","\nKonečně, to musí být to opuštěné silo, které je zakreslené na mapě. Určitě\n"
                                         + "bychom se tu měli porozhlédnout. Ale dávej si bacha, prý tu straší! Až tu budeme\n"
-                                        + "hotoví, měli bychom se vydat směrem ke skříženým zdem.\n");
+                                        + "hotoví, měli bychom se vydat směrem ke skříženým zdem.\n", 20,20);
         Prostor skrizeneZdi = new Prostor("skřížené_zdi","\nTady mapa od táty končí, jestli se nám nepodaří najít nové indície,\n"
-                                                       + "nevím, jak budeme moci pokračovat dále.\n");
+                                                       + "nevím, jak budeme moci pokračovat dále.\n", 10,100);
         Prostor baziny = new Prostor("bažiny","\nDávej pozor! Už jsme v bažinách. Támhle musí být ten hlídač, jak se jen\n" 
                                             + "jmenoval... Už vím, Zabiják! Musíme ho dostat, jinak se nedostaneme do\n"
-                                            + "staré chaty živí a zdraví!\n");
-        Prostor mocaly = new Prostor ("močály","\nTo ne! To jsou močály. Jsme v koncích!\n");
-        Prostor strasidelnaVrba = new Prostor("strašidelná vrba","\nZajímavé místo, ale půjdme dál, není tu nic zajímavého.");
+                                            + "staré chaty živí a zdraví!\n", 40,60);
+        Prostor mocaly = new Prostor ("močály","\nTo ne! To jsou močály. Jsme v koncích!\n", 70,130);
+        Prostor strasidelnaVrba = new Prostor("strašidelná vrba","\nZajímavé místo, ale půjdme dál, není tu nic zajímavého.", 30,80);
         Prostor staraChata = new Prostor("stará_chata","\nKoukej, támhle někdo je, promluv s ním a prohledej to tu,\n"
-                                                     + "já počkám venku.\n");
+                                                     + "já počkám venku.\n", 10,30);
         Prostor skaliska = new Prostor("skaliska","\nTady to bude o život, ale podívej, vraky aut, o kterých mluvil\n"
-                                                + "poustevník, jsou hned za tímhle štítem, tak pojďme.\n");
-        Prostor vrakyAut = new Prostor("vraky_aut","\nMusíme to tu prohledat, jistě tu bude budou další indície!\n");
+                                                + "poustevník, jsou hned za tímhle štítem, tak pojďme.\n", 80,150);
+        Prostor vrakyAut = new Prostor("vraky_aut","\nMusíme to tu prohledat, jistě tu bude budou další indície!\n", 60,90);
         Prostor pohrebiste = new Prostor("pohřebiště","\nO pohřebišti se zmiňoval poustevník naposled, dál však cestu\n"
                                                     + "neznal. Ale podívej se, támhle je ukazatel se směrovkami. Vydáme se do\n"
-                                                    + "tunelu, to musí být přístupová cesta do starého podzemního chrámu.\n");
-        Prostor tunel = new Prostor("tunel","\nRychle odtud pryč, hemží se to tady havětí!\n");
+                                                    + "tunelu, to musí být přístupová cesta do starého podzemního chrámu.\n", 110,120);
+        Prostor tunel = new Prostor("tunel","\nRychle odtud pryč, hemží se to tady havětí!\n", 60,30);
         Prostor staryPodzemniChram = new Prostor("starý_podzemní_chrám","\nDívej, to nemůže být pravda! Vypadá to tu tak prázdně,\n"
                                                                       + "musel tu být už už někdo před námi a všechno odnést.\n"
-                                                                      + "pojďme do krypty, to je naše poslední naděje.\n");
+                                                                      + "pojďme do krypty, to je naše poslední naděje.\n", 150,40);
         Prostor krypta = new Prostor ("krypta","\nHledej všude! Tady v kryptě je mnoho skrytých míst, kde by se kalich mohl\n" 
-                                             + "nacházet. Musíme najít odpoveď na mnoho let zpochybňovaný mýtus o kalichu života.\n");
+                                             + "nacházet. Musíme najít odpoveď na mnoho let zpochybňovaný mýtus o kalichu života.\n", 40,50);
                                        
 
         // přiřazují se průchody mezi prostory (sousedící prostory)
@@ -169,6 +177,7 @@ public class HerniPlan {
      */
     public void setAktualniProstor(Prostor prostor) {
         aktualniProstor = prostor;
+        notifyObservers();
     }
 
     /**
@@ -179,5 +188,23 @@ public class HerniPlan {
 
     public Batoh getBatoh() {
         return batoh;
+    }
+
+    
+    @Override
+    public void registerObserver(Observer observer) {
+        listObserveru.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        listObserveru.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer listObserveruItem : listObserveru) {
+            listObserveruItem.update();
+        }
     }
 }

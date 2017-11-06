@@ -1,6 +1,5 @@
 package logika;
 
-import java.util.*;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
@@ -29,6 +28,8 @@ public class Prostor {
     private Map<String, Osoba> osobyVProstoru;
     private boolean jeZamknuto = false;
     private boolean jeZivy = false;
+    private double posLeft;
+    private double posTop;
 
     /**
      * Vytvoření prostoru se zadaným popisem, např. "kuchyň", "hala", "trávník před domem"
@@ -37,12 +38,22 @@ public class Prostor {
      * víceslovný název bez mezer.
      * @param popis Popis prostoru.
      */
-    public Prostor(String nazev, String popis) {
+    public Prostor(String nazev, String popis, double posLeft, double posTop) {
         this.nazev = nazev;
         this.popis = popis;
+        this.posLeft = posLeft;
+        this.posTop = posTop;
         vychody = new HashSet<>();
         veciVProstoru = new HashMap<>();
         osobyVProstoru = new HashMap<>();
+    }
+
+    public double getPosLeft() {
+        return posLeft;
+    }
+
+    public double getPosTop() {
+        return posTop;
     }
 
     /**
