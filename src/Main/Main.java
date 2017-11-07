@@ -47,8 +47,12 @@ public class Main extends Application {
     private Mapa mapa;
     private MenuLista menuLista;
     
+    private Stage stage;
+    
     @Override
     public void start(Stage primaryStage) {
+        this.stage = primaryStage;
+        
         hra = new Hra();
         
         mapa = new Mapa(hra);
@@ -95,6 +99,9 @@ public class Main extends Application {
         borderPane.setBottom(dolniLista);
         borderPane.setTop (menuLista);
 
+        Scene scene = new Scene(borderPane, 750, 450);
+        primaryStage.setTitle("Adventura");
+        
         primaryStage.setScene(scene);
         primaryStage.show();
         zadejPrikazTextArea.requestFocus();
@@ -126,6 +133,13 @@ public class Main extends Application {
                 System.exit(1);
             }
         }
+    }
+
+    /**
+     * @return the stage
+     */
+    public Stage getStage() {
+        return stage;
     }
 
 }
