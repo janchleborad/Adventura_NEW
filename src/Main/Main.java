@@ -35,8 +35,8 @@ import uiText.TextoveRozhrani;
  */
 public class Main extends Application {
     
-    private TextArea centralText;
-    private IHra hra;
+    private static TextArea centralText;
+    private static IHra hra;
     
     public void setHra(IHra hra) {
         this.hra = hra;
@@ -99,7 +99,7 @@ public class Main extends Application {
         borderPane.setBottom(dolniLista);
         borderPane.setTop (menuLista);
 
-        Scene scene = new Scene(borderPane, 750, 450);
+        Scene scene = new Scene(borderPane, 1200, 750);
         primaryStage.setTitle("Adventura");
         
         primaryStage.setScene(scene);
@@ -141,5 +141,12 @@ public class Main extends Application {
     public Stage getStage() {
         return stage;
     }
-
+    
+    public static IHra getHra() {
+        return hra;
+    }
+    
+    public static TextArea getTextArea() {
+        return centralText;
+    }
 }

@@ -12,13 +12,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import logika.IHra;
-import utils.Observer;
+import utils.ObserverZmenaProstoru;
 
 /**
  *
  * @author Honysek
  */
-public class Mapa extends AnchorPane implements Observer {
+public class Mapa extends AnchorPane implements ObserverZmenaProstoru {
     
     public IHra hra;
     private Circle tecka;
@@ -31,19 +31,19 @@ public class Mapa extends AnchorPane implements Observer {
     
     public void init() {
             
-            ImageView obrazekImageView = new ImageView(new Image(Main.class.getResourceAsStream("/zdroje/mapa.jpg"), 200, 200, false, true));
+            ImageView obrazekImageView = new ImageView(new Image(Main.class.getResourceAsStream("/zdroje/mapa.jpg"), 600, 480, false, true));
         
             tecka = new Circle(10, Paint.valueOf("red"));
             
-            //this.setTopAnchor(tecka, 25.0);
-            //this.setLeftAnchor(tecka, 100.0);
+            //this.setTopAnchor(tecka, 5.0);
+            //this.setLeftAnchor(tecka, 75.0);
             
             this.getChildren().addAll(obrazekImageView, tecka);
             update();
     }
     
     public void newGame(IHra novaHra) {
-        hra.getHerniPlan().removeObserver(this);
+        hra.getHerniPlan().unregisterObserver(this);
         hra = novaHra;
         hra.getHerniPlan().registerObserver(this);
         update();
@@ -52,6 +52,6 @@ public class Mapa extends AnchorPane implements Observer {
     @Override
     public void update() {
         this.setTopAnchor(tecka, hra.getHerniPlan().getAktualniProstor().getPosTop());
-        this.setTopAnchor(tecka, hra.getHerniPlan().getAktualniProstor().getPosLeft());
+        this.setLeftAnchor(tecka, hra.getHerniPlan().getAktualniProstor().getPosLeft());
     }
 }
