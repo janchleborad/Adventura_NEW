@@ -40,31 +40,31 @@ public class HerniPlan implements SubjektZmenaProstoru {
     private void zalozProstoryHry() {
         // vytvářejí se jednotlivé prostory
         Prostor trnitaStezka = new Prostor("trnitá_stezka","\nAkorát jsme na trnité stezce, podle mapy, kteou mi dal táta,\n"
-                                                         + "bychom se tudy měli prodrat k silu.\n", 75,32);
+                                                         + "bychom se tudy měli prodrat k silu.\n", 50,15);
         Prostor silo = new Prostor("silo","\nKonečně, to musí být to opuštěné silo, které je zakreslené na mapě. Určitě\n"
                                         + "bychom se tu měli porozhlédnout. Ale dávej si bacha, prý tu straší! Až tu budeme\n"
-                                        + "hotoví, měli bychom se vydat směrem ke skříženým zdem.\n", 298,32);
+                                        + "hotoví, měli bychom se vydat směrem ke skříženým zdem.\n", 211,15);
         Prostor skrizeneZdi = new Prostor("skřížené_zdi","\nTady mapa od táty končí, jestli se nám nepodaří najít nové indície,\n"
-                                                       + "nevím, jak budeme moci pokračovat dále.\n", 520,32);
+                                                       + "nevím, jak budeme moci pokračovat dále.\n", 398,15);
         Prostor baziny = new Prostor("bažiny","\nDávej pozor! Už jsme v bažinách. Támhle musí být ten hlídač, jak se jen\n" 
                                             + "jmenoval... Už vím, Zabiják! Musíme ho dostat, jinak se nedostaneme do\n"
-                                            + "staré chaty živí a zdraví!\n", 298,119);
-        Prostor mocaly = new Prostor ("močály","\nTo ne! To jsou močály. Jsme v koncích!\n", 70,130);//to do
-        Prostor strasidelnaVrba = new Prostor("strašidelná vrba","\nZajímavé místo, ale půjdme dál, není tu nic zajímavého.", 520,119);
+                                            + "staré chaty živí a zdraví!\n", 211,100);
+        Prostor mocaly = new Prostor ("močály","\nTo ne! To jsou močály. Jsme v koncích!\n", 74,93);
+        Prostor strasidelnaVrba = new Prostor("strašidelná vrba","\nZajímavé místo, ale půjdme dál, není tu nic zajímavého.", 290,93);
         Prostor staraChata = new Prostor("stará_chata","\nKoukej, támhle někdo je, promluv s ním a prohledej to tu,\n"
-                                                     + "já počkám venku.\n", 298,209);
+                                                     + "já počkám venku.\n", 290,167);
         Prostor skaliska = new Prostor("skaliska","\nTady to bude o život, ale podívej, vraky aut, o kterých mluvil\n"
-                                                + "poustevník, jsou hned za tímhle štítem, tak pojďme.\n", 298,293);
-        Prostor vrakyAut = new Prostor("vraky_aut","\nMusíme to tu prohledat, jistě tu bude budou další indície!\n", 520,293);
+                                                + "poustevník, jsou hned za tímhle štítem, tak pojďme.\n", 290,241);
+        Prostor vrakyAut = new Prostor("vraky_aut","\nMusíme to tu prohledat, jistě tu bude budou další indície!\n", 527,241);
         Prostor pohrebiste = new Prostor("pohřebiště","\nO pohřebišti se zmiňoval poustevník naposled, dál však cestu\n"
                                                     + "neznal. Ale podívej se, támhle je ukazatel se směrovkami. Vydáme se do\n"
-                                                    + "tunelu, to musí být přístupová cesta do starého podzemního chrámu.\n", 75,293);
-        Prostor tunel = new Prostor("tunel","\nRychle odtud pryč, hemží se to tady havětí!\n", 75,368);
+                                                    + "tunelu, to musí být přístupová cesta do starého podzemního chrámu.\n", 74,241);
+        Prostor tunel = new Prostor("tunel","\nRychle odtud pryč, hemží se to tady havětí!\n", 74,315);
         Prostor staryPodzemniChram = new Prostor("starý_podzemní_chrám","\nDívej, to nemůže být pravda! Vypadá to tu tak prázdně,\n"
                                                                       + "musel tu být už už někdo před námi a všechno odnést.\n"
-                                                                      + "pojďme do krypty, to je naše poslední naděje.\n", 75,439);
+                                                                      + "pojďme do krypty, to je naše poslední naděje.\n", 74,388);
         Prostor krypta = new Prostor ("krypta","\nHledej všude! Tady v kryptě je mnoho skrytých míst, kde by se kalich mohl\n" 
-                                             + "nacházet. Musíme najít odpoveď na mnoho let zpochybňovaný mýtus o kalichu života.\n", 75,439);//to do
+                                             + "nacházet. Musíme najít odpoveď na mnoho let zpochybňovaný mýtus o kalichu života.\n", 74,459);
                                        
 
         // přiřazují se průchody mezi prostory (sousedící prostory)

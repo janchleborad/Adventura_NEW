@@ -31,9 +31,9 @@ public class Mapa extends AnchorPane implements ObserverZmenaProstoru {
     
     public void init() {
             
-            ImageView obrazekImageView = new ImageView(new Image(Main.class.getResourceAsStream("/zdroje/mapa.jpg"), 600, 480, false, true));
+            ImageView obrazekImageView = new ImageView(new Image(Main.class.getResourceAsStream("/zdroje/mapa.jpg"), 461, 585, false, true));
         
-            tecka = new Circle(10, Paint.valueOf("red"));
+            tecka = new Circle(10, Paint.valueOf("black"));
             
             //this.setTopAnchor(tecka, 5.0);
             //this.setLeftAnchor(tecka, 75.0);
