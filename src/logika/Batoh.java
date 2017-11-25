@@ -1,8 +1,12 @@
 /* Soubor je ulozen v kodovani UTF-8.
  * Kontrola kódování: Příliš žluťoučký kůň úpěl ďábelské ódy. */
 package logika;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import utils.Observer;
+import utils.Subject;
 
 /*******************************************************************************
  * Instance třídy Batoh představují inventář s omezenou kapacitou.
@@ -12,15 +16,20 @@ import java.util.HashMap;
  * @version   1.00.000
  * @created   prosinec 2016
  */
-public class Batoh{
+public class Batoh implements Subject{
     private Map <String, Vec> veciVBatohu;      // věci v batohu
     private static final int MAX_OBSAH = 3;     // maximální kapacita
 
+     private List<Observer> listObserveru = new ArrayList<Observer>();
     /**
      * Konstruktor třídy.
      */
-    public Batoh(){
+    public Batoh() {
         veciVBatohu = new HashMap<String, Vec>();
+    }
+
+    public Map<String, Vec> getVeciVBatohu() {
+        return veciVBatohu;
     }
 
     /**
@@ -32,6 +41,7 @@ public class Batoh{
     public boolean vlozVec(Vec vec){
         if(veciVBatohu.size() < MAX_OBSAH) {
             veciVBatohu.put(vec.getNazev(), vec);
+            notifyObservers();
             return true;
         }
         else {
@@ -50,6 +60,7 @@ public class Batoh{
         if (veciVBatohu.containsKey(nazev)) {
             zahozenaVec = veciVBatohu.get(nazev);
             veciVBatohu.remove(nazev);
+            notifyObservers();
         }
         return zahozenaVec;  
     }  
@@ -75,6 +86,23 @@ public class Batoh{
             veci += nazevVeci + " " ;
         }
         return veci;
+    }
+
+    @Override
+    public void registerObserver(Observer observer) {
+        listObserveru.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        listObserveru.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer listObserveruItem : listObserveru) {
+            listObserveruItem.update();
+        }
     }
 
 }

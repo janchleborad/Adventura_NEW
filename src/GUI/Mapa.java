@@ -12,13 +12,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import logika.IHra;
-import utils.ObserverZmenaProstoru;
+import utils.Observer;
 
 /**
  *
  * @author Honysek
  */
-public class Mapa extends AnchorPane implements ObserverZmenaProstoru {
+public class Mapa extends AnchorPane implements Observer {
     
     public IHra hra;
     private Circle tecka;
@@ -35,15 +35,12 @@ public class Mapa extends AnchorPane implements ObserverZmenaProstoru {
         
             tecka = new Circle(10, Paint.valueOf("black"));
             
-            //this.setTopAnchor(tecka, 5.0);
-            //this.setLeftAnchor(tecka, 75.0);
-            
             this.getChildren().addAll(obrazekImageView, tecka);
             update();
     }
     
     public void newGame(IHra novaHra) {
-        hra.getHerniPlan().unregisterObserver(this);
+        hra.getHerniPlan().removeObserver(this);
         hra = novaHra;
         hra.getHerniPlan().registerObserver(this);
         update();
@@ -53,5 +50,10 @@ public class Mapa extends AnchorPane implements ObserverZmenaProstoru {
     public void update() {
         this.setTopAnchor(tecka, hra.getHerniPlan().getAktualniProstor().getPosTop());
         this.setLeftAnchor(tecka, hra.getHerniPlan().getAktualniProstor().getPosLeft());
+    }
+
+    @Override
+    public void novaHra() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

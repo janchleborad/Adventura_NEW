@@ -51,55 +51,47 @@ public class MenuLista extends MenuBar {
         MenuItem oProgramu = new MenuItem("O programu");
         MenuItem napovedaItem = new MenuItem("Nápověda");
         
-        this.getMenus().addAll(novySoubor);
+        napoveda.getItems().addAll(oProgramu, napovedaItem);
         
-        konecHry.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                System.exit(0);
-            }
+        this.getMenus().addAll(novySoubor, napoveda);
+        
+        konecHry.setOnAction(e -> {
+            System.exit(0);
         });
         
-        novaHra.setOnAction(new EventHandler<ActionEvent>() {
-            
-            @Override
-            public void handle(ActionEvent event) {
-                hra = new Hra();
-                main.getMapa().newGame(hra);
-                main.setHra(hra);
-                main.getCentralText().setText(hra.vratUvitani());
-            }
+        novaHra.setOnAction(e -> {
+            hra = new Hra();
+            main.getMapa().newGame(hra);
+            main.setHra(hra);
+            main.getCentralText().setText(hra.vratUvitani());
         });
     
-        oProgramu.setOnAction(new EventHandler<ActionEvent>() {
+        oProgramu.setOnAction(e -> {
+            Alert oProgramuAlert = new Alert(Alert.AlertType.INFORMATION);
             
-            @Override
-            public void handle(ActionEvent event) {
-                Alert oProgramuAlert = new Alert(Alert.AlertType.INFORMATION);
-                
-                oProgramuAlert.setTitle("O programu");
-                oProgramuAlert.setHeaderText("Advenentura XYZ");
-                oProgramuAlert.setContentText("Lorem ipsum");
-                oProgramuAlert.initOwner(main.getStage());
-                
-                oProgramuAlert.showAndWait();
-            }
+            oProgramuAlert.setTitle("O programu");
+            oProgramuAlert.setHeaderText("Advenentura | 4IT115 | ZS 2017/2018 \n" +
+                                         "Autor: Jan Chleborád \n" +
+                                         "Verze: 2.0 (FINAL)");
+            oProgramuAlert.setContentText("Aplikace je adventurou v textovým uživatelským rozhraním, která byla" +
+                                          "zprácována v rámci předmětů 4IT101 a 4IT115 na Vysoké škole ekonomické. " +
+                                          "Jednotlivé funkce a podrobnosti \n" +
+                                          "jsou k nalezení na odkazu níže. \n" +
+                                          "http://java.vse.cz/4it115/ZadaniPrvniUlohy");
+            oProgramuAlert.initOwner(main.getStage());
+            
+            oProgramuAlert.showAndWait();
         });
         
-        napovedaItem.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                
-                Stage stage = new Stage();
-                stage.setTitle("Nápověda");
-                
-                WebView webView = new WebView();
-                webView.getEngine().load(Main.class.getResource("/zdroje/napoveda.html").toExternalForm());
-                
-                stage.setScene(new Scene(webView, 500, 500));
-                stage.show();
-            }
+        napovedaItem.setOnAction(e -> {
+            Stage stage = new Stage();
+            stage.setTitle("Nápověda");
+            
+            WebView webView = new WebView();
+            webView.getEngine().load(Main.class.getResource("/zdroje/napoveda.html").toExternalForm());
+            
+            stage.setScene(new Scene(webView, 500, 500));
+            stage.show();
         });
     }
 }

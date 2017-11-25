@@ -1,10 +1,11 @@
 package logika;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import utils.Observer;
-import utils.ObserverZmenaProstoru;
-import utils.SubjektZmenaProstoru;
+import utils.Subject;
 
 /**
  *  Class HerniPlan - třída představující mapu a stav adventury.
@@ -17,13 +18,13 @@ import utils.SubjektZmenaProstoru;
  *@author     Michael Kolling, Lubos Pavlicek, Jarmila Pavlickova, Jan Chleborád
  *@version    pro školní rok 2015/2016, upraveno prosinec 2016
  */
-public class HerniPlan implements SubjektZmenaProstoru {
+public class HerniPlan implements Subject {
     
     private Prostor aktualniProstor;
     private Batoh batoh;
+    private Set<Prostor> prostory;
+    private List<Observer> listObserveru = new ArrayList<>();
     
-    private List<ObserverZmenaProstoru> listObserveru = new ArrayList<ObserverZmenaProstoru>();
-
     /**
      *  Konstruktor který vytváří jednotlivé prostory a propojuje je pomocí východů.
      *  Jako výchozí aktuální prostor nastaví halu.
@@ -31,6 +32,7 @@ public class HerniPlan implements SubjektZmenaProstoru {
     public HerniPlan() {
         zalozProstoryHry();
         batoh = new Batoh();
+        
     }
 
     /**
@@ -48,26 +50,40 @@ public class HerniPlan implements SubjektZmenaProstoru {
                                                        + "nevím, jak budeme moci pokračovat dále.\n", 398,15);
         Prostor baziny = new Prostor("bažiny","\nDávej pozor! Už jsme v bažinách. Támhle musí být ten hlídač, jak se jen\n" 
                                             + "jmenoval... Už vím, Zabiják! Musíme ho dostat, jinak se nedostaneme do\n"
-                                            + "staré chaty živí a zdraví!\n", 211,100);
-        Prostor mocaly = new Prostor ("močály","\nTo ne! To jsou močály. Jsme v koncích!\n", 74,93);
-        Prostor strasidelnaVrba = new Prostor("strašidelná vrba","\nZajímavé místo, ale půjdme dál, není tu nic zajímavého.", 290,93);
+                                            + "staré chaty živí a zdraví!\n", 211,105);
+        Prostor mocaly = new Prostor ("močály","\nTo ne! To jsou močály. Jsme v koncích!\n", 50,105);
+        Prostor strasidelnaVrba = new Prostor("strašidelná_vrba","\nZajímavé místo, ale půjdme dál, není tu nic zajímavého.", 398,105);
         Prostor staraChata = new Prostor("stará_chata","\nKoukej, támhle někdo je, promluv s ním a prohledej to tu,\n"
-                                                     + "já počkám venku.\n", 290,167);
+                                                     + "já počkám venku.\n", 211,180);
         Prostor skaliska = new Prostor("skaliska","\nTady to bude o život, ale podívej, vraky aut, o kterých mluvil\n"
-                                                + "poustevník, jsou hned za tímhle štítem, tak pojďme.\n", 290,241);
-        Prostor vrakyAut = new Prostor("vraky_aut","\nMusíme to tu prohledat, jistě tu bude budou další indície!\n", 527,241);
+                                                + "poustevník, jsou hned za tímhle štítem, tak pojďme.\n", 211,241);
+        Prostor vrakyAut = new Prostor("vraky_aut","\nMusíme to tu prohledat, jistě tu bude budou další indície!\n", 398,241);
         Prostor pohrebiste = new Prostor("pohřebiště","\nO pohřebišti se zmiňoval poustevník naposled, dál však cestu\n"
                                                     + "neznal. Ale podívej se, támhle je ukazatel se směrovkami. Vydáme se do\n"
-                                                    + "tunelu, to musí být přístupová cesta do starého podzemního chrámu.\n", 74,241);
-        Prostor tunel = new Prostor("tunel","\nRychle odtud pryč, hemží se to tady havětí!\n", 74,315);
+                                                    + "tunelu, to musí být přístupová cesta do starého podzemního chrámu.\n", 50,241);
+        Prostor tunel = new Prostor("tunel","\nRychle odtud pryč, hemží se to tady havětí!\n", 50,315);
         Prostor staryPodzemniChram = new Prostor("starý_podzemní_chrám","\nDívej, to nemůže být pravda! Vypadá to tu tak prázdně,\n"
                                                                       + "musel tu být už už někdo před námi a všechno odnést.\n"
-                                                                      + "pojďme do krypty, to je naše poslední naděje.\n", 74,388);
+                                                                      + "pojďme do krypty, to je naše poslední naděje.\n", 50,388);
         Prostor krypta = new Prostor ("krypta","\nHledej všude! Tady v kryptě je mnoho skrytých míst, kde by se kalich mohl\n" 
-                                             + "nacházet. Musíme najít odpoveď na mnoho let zpochybňovaný mýtus o kalichu života.\n", 74,459);
+                                             + "nacházet. Musíme najít odpoveď na mnoho let zpochybňovaný mýtus o kalichu života.\n", 50,459);
                                        
+        prostory = new HashSet<Prostor>();
+        prostory.add(trnitaStezka);
+        prostory.add(silo);
+        prostory.add(skrizeneZdi);
+        prostory.add(baziny);
+        prostory.add(mocaly);
+        prostory.add(strasidelnaVrba);
+        prostory.add(staraChata);
+        prostory.add(skaliska);
+        prostory.add(vrakyAut);
+        prostory.add(pohrebiste);
+        prostory.add(tunel);
+        prostory.add(staryPodzemniChram);
+        prostory.add(krypta);
 
-        // přiřazují se průchody mezi prostory (sousedící prostory)
+// přiřazují se průchody mezi prostory (sousedící prostory)
         trnitaStezka.setVychod(silo);
         silo.setVychod(trnitaStezka);
         silo.setVychod(skrizeneZdi);
@@ -161,6 +177,10 @@ public class HerniPlan implements SubjektZmenaProstoru {
         krypta.setJeZamknuto(true);
     }
 
+    public Set<Prostor> getProstory() {
+        return prostory;
+    }
+
     /**
      *  Metoda vrací odkaz na aktuální prostor, ve ktetém se hráč právě nachází.
      *
@@ -193,18 +213,18 @@ public class HerniPlan implements SubjektZmenaProstoru {
 
     
     @Override
-    public void registerObserver(ObserverZmenaProstoru observer) {
+    public void registerObserver(Observer observer) {
         listObserveru.add(observer);
     }
 
     @Override
-    public void unregisterObserver(ObserverZmenaProstoru observer) {
+    public void removeObserver(Observer observer) {
         listObserveru.remove(observer);
     }
 
     @Override
     public void notifyObservers() {
-        for (ObserverZmenaProstoru listObserveruItem : listObserveru) {
+        for (Observer listObserveruItem : listObserveru) {
             listObserveruItem.update();
         }
     }

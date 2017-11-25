@@ -1,5 +1,6 @@
 package logika;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
@@ -8,6 +9,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
+import utils.Observer;
+import utils.Subject;
 
 /**
  * Třída Prostor - popisuje jednotlivé prostory (místnosti) hry.
@@ -20,7 +23,7 @@ import java.util.HashMap;
  * @author Michael Kolling, Lubos Pavlicek, Jarmila Pavlickova, Jan Chleborád
  * @version pro školní rok 2015/2016, upraveno prosinec 2016
  */
-public class Prostor {
+public class Prostor implements Subject {
     private String nazev;
     private String popis;
     private Set<Prostor> vychody;
@@ -30,6 +33,8 @@ public class Prostor {
     private boolean jeZivy = false;
     private double posLeft;
     private double posTop;
+    
+    private List<Observer> listObserveru = new ArrayList<>();
 
     /**
      * Vytvoření prostoru se zadaným popisem, např. "kuchyň", "hala", "trávník před domem"
@@ -48,6 +53,10 @@ public class Prostor {
         osobyVProstoru = new HashMap<>();
     }
 
+    public Map<String, Vec> getVeciVProstoru() {
+        return veciVProstoru;
+    }
+    
     public double getPosLeft() {
         return posLeft;
     }
@@ -191,12 +200,18 @@ public class Prostor {
      * @return Popis věcí - názvů věcí v prostoru
      */
     public String popisVeci(){
-        String vracenyText = "Jsou zde tyto věci: ";
-        for (Vec nazev : veciVProstoru.values()) {
-            if (nazev.getJeSkryta()) {
-                continue;
+        String vracenyText;
+        if (veciVProstoru.values().isEmpty()){
+            vracenyText = "Zde nejsou žádné věci.";
+        } else {
+        
+            vracenyText = "Jsou zde tyto věci: ";
+            for (Vec nazev : veciVProstoru.values()) {
+                if (nazev.getJeSkryta()) {
+                    continue;
+                }
+                vracenyText += nazev.getNazev() + " ";
             }
-            vracenyText += nazev.getNazev() + " ";
         }
         return vracenyText;
     }
@@ -207,11 +222,17 @@ public class Prostor {
      * @return Popis osob - názvů osob v prostoru
      */
     public String popisOsob() {
-        String vracenyText = "Jsou zde tyto osoby: ";
-        for (String nazev : osobyVProstoru.keySet()) {
-            vracenyText += nazev + " ";
+        String vracenyText;
+        if (veciVProstoru.values().isEmpty()){
+            vracenyText = "Zde nejsou žádné osoby.";
+        } else {
+        
+            vracenyText = "Jsou zde tyto osoby: ";
+            for (String nazev : osobyVProstoru.keySet()) {
+                vracenyText += nazev + " ";
+            }
         }
-        return vracenyText;
+    return vracenyText;
     }
 
     /**
@@ -284,6 +305,7 @@ public class Prostor {
      */ 
     public void vlozVec(Vec vec){
         veciVProstoru.put(vec.getNazev(),vec);
+        notifyObservers();
     }
 
     /**
@@ -294,6 +316,7 @@ public class Prostor {
         if (veciVProstoru.containsKey(nazev)) {
             zahozenaVec = veciVProstoru.get(nazev);
             veciVProstoru.remove(nazev);
+            notifyObservers();
         }
         return zahozenaVec;  
     }  
@@ -344,5 +367,22 @@ public class Prostor {
      */
     public boolean obsahujeOsobu(String nazev){
         return osobyVProstoru.containsKey(nazev);
+    }
+    
+    @Override
+    public void registerObserver(Observer observer) {
+        listObserveru.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        listObserveru.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer listObserveruItem : listObserveru) {
+            listObserveruItem.update();
+        }
     }
 }
