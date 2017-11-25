@@ -42,9 +42,10 @@ public class MenuLista extends MenuBar {
         Menu napoveda = new Menu("Help");
         
         MenuItem novaHra = new MenuItem("Nová hra", new ImageView(new Image(Main.class.getResourceAsStream("/zdroje/ikona.png"))));
+        novaHra.setAccelerator(KeyCombination.keyCombination("CTRL+N"));
         
-        novaHra.setAccelerator(KeyCombination.keyCombination("CTRL+H"));
-        MenuItem konecHry = new MenuItem("Konec hry");
+        MenuItem konecHry = new MenuItem("Konec hry", new ImageView(new Image(Main.class.getResourceAsStream("/zdroje/stop.png"))));
+        konecHry.setAccelerator(KeyCombination.keyCombination("CTRL+E"));
                 
         novySoubor.getItems().addAll(novaHra, konecHry);
         
@@ -61,7 +62,10 @@ public class MenuLista extends MenuBar {
         
         novaHra.setOnAction(e -> {
             hra = new Hra();
-            main.getMapa().newGame(hra);
+            main.getMapa().novaHra(hra);
+            main.getBatoh().novaHra(hra);
+            main.getPanelVychodu().novaHra(hra);
+            main.getVeciVProstoru().novaHra(hra);
             main.setHra(hra);
             main.getCentralText().setText(hra.vratUvitani());
         });

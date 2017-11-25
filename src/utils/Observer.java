@@ -5,6 +5,8 @@
  */
 package utils;
 
+import logika.IHra;
+
 /**
  *
  * @author Honysek
@@ -12,8 +14,7 @@ package utils;
 public interface Observer {
     
     public void update();
-    public void novaHra();
-    
-    }
+    public void novaHra(IHra Hra);
+}
 
 

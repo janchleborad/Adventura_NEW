@@ -50,7 +50,9 @@ public class PanelVychodu extends ListView implements Observer {
             String odpoved = hra.zpracujPrikaz("jdi " + polozka.substring(1, konecPolozky));
             centralText.appendText("\n\n" + odpoved + "\n");
         });
-        
+        this.setFixedCellSize(40);
+        this.setMaxHeight(164);
+        this.setMinHeight(164);
     }
      
     @Override
@@ -63,8 +65,10 @@ public class PanelVychodu extends ListView implements Observer {
     }
 
     @Override
-    public void novaHra() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+    public void novaHra(IHra hra) {
+        this.hra.getHerniPlan().removeObserver(this);
+        this.hra = hra;
+        plan.registerObserver(this);
+        update();
+    } 
 }

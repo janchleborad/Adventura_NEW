@@ -38,14 +38,7 @@ public class Mapa extends AnchorPane implements Observer {
             this.getChildren().addAll(obrazekImageView, tecka);
             update();
     }
-    
-    public void newGame(IHra novaHra) {
-        hra.getHerniPlan().removeObserver(this);
-        hra = novaHra;
-        hra.getHerniPlan().registerObserver(this);
-        update();
-    }
-    
+        
     @Override
     public void update() {
         this.setTopAnchor(tecka, hra.getHerniPlan().getAktualniProstor().getPosTop());
@@ -53,7 +46,10 @@ public class Mapa extends AnchorPane implements Observer {
     }
 
     @Override
-    public void novaHra() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void novaHra(IHra hra) {
+        this.hra.getHerniPlan().removeObserver(this);
+        this.hra = hra;
+        hra.getHerniPlan().registerObserver(this);
+        update();
     }
 }

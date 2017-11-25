@@ -68,7 +68,6 @@ public class VeciVProstoru extends TilePane implements Observer {
             ImageView obrazekVeci = new ImageView(new Image(Batoh.class.getResourceAsStream("/zdroje/" + vec.getNazev() + ".jpg")));
             
             obrazekVeci.setOnMouseClicked(e -> {
-                hra.zpracujPrikaz("seber " + vec.getNazev());
                 String odpoved = hra.zpracujPrikaz("seber " + vec.getNazev());
                 centralText.appendText("\n\n" + odpoved + "\n");
             });
@@ -78,7 +77,18 @@ public class VeciVProstoru extends TilePane implements Observer {
     }
 
     @Override
-    public void novaHra() {
-       
+    public void novaHra(IHra hra) {
+        hra.getHerniPlan().getBatoh().removeObserver(this);
+        hra.getHerniPlan().removeObserver(this);
+        for (Prostor prostor : hra.getHerniPlan().getProstory()) {
+            prostor.removeObserver(this);
+        }
+        this.hra = hra;
+        hra.getHerniPlan().getBatoh().registerObserver(this);
+        hra.getHerniPlan().registerObserver(this);
+        for (Prostor prostor : hra.getHerniPlan().getProstory()) {
+            prostor.registerObserver(this);
+        }
+       update();
     } 
 }

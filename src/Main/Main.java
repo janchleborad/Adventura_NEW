@@ -22,7 +22,9 @@ import javafx.stage.Stage;
 import logika.*;
 import uiText.TextoveRozhrani;
 import GUI.*;
-import javafx.scene.control.ContentDisplay;
+import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
+import javafx.scene.layout.VBox;
 
 /**
  *
@@ -49,7 +51,6 @@ public class Main extends Application {
         this.stage = primaryStage;
         
         hra = new Hra();
-        
         mapa = new Mapa(hra);
         menuLista = new MenuLista(hra, this);
         
@@ -59,7 +60,6 @@ public class Main extends Application {
         centralText = new TextArea();
         centralText.setText(hra.vratUvitani());
         centralText.setEditable(false);
-        borderPane.setMaxHeight(750);
         borderPane.setCenter(centralText);
         
         this.panelVychodu = new PanelVychodu(hra, centralText);
@@ -71,7 +71,7 @@ public class Main extends Application {
         zadejPrikazLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
         
         //Text area, dokteré píšeme příkazy
-        zadejPrikazTextArea = new TextField("...");
+        zadejPrikazTextArea = new TextField();
         zadejPrikazTextArea.setOnAction(e -> {
             String vstupniPrikaz = zadejPrikazTextArea.getText ();
             String odpovedHry = hra.zpracujPrikaz(vstupniPrikaz);
@@ -91,43 +91,67 @@ public class Main extends Application {
         dolniLista.setAlignment(Pos.CENTER);
         dolniLista.getChildren().addAll(zadejPrikazLabel, zadejPrikazTextArea);
         
-        BorderPane pravaLista = new BorderPane();
+        //Pravá lišta s elementy
+        FlowPane pravaLista = new FlowPane(Orientation.VERTICAL);
+        pravaLista.setStyle("-fx-background-color: #FFFFFF");
         BorderPane horniBP = new BorderPane();
         horniBP.setCenter(panelVychodu);
-        horniBP.setMaxHeight(100.0);
+        horniBP.setMaxHeight(194);
         Label panelVychoduLabel = new Label("Panel východů");
+        panelVychoduLabel.setMinHeight(30);
+        panelVychoduLabel.setMaxHeight(30);
         panelVychoduLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
         horniBP.setTop(panelVychoduLabel);
 
         BorderPane centerBP = new BorderPane();
         centerBP.setCenter(batoh);
-        centerBP.setMaxHeight(200.0);
+        centerBP.setMinHeight(240);
+        centerBP.setMaxHeight(240);
         Label batohLabel = new Label("Batoh");
+        batohLabel.setMinHeight(30);
+        batohLabel.setMaxHeight(30);
         batohLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
         centerBP.setTop(batohLabel);
 
         BorderPane dolniBP = new BorderPane();
         dolniBP.setCenter(veciVProstoru);
-        dolniBP.setMaxHeight(200.0);
         Label veciVProstoruLabel = new Label("Věci v prostoru");
+        veciVProstoruLabel.setMinHeight(30);
+        veciVProstoruLabel.setMaxHeight(30);
         veciVProstoruLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
         dolniBP.setTop(veciVProstoruLabel);
 
-        pravaLista.setTop(horniBP);
-        pravaLista.setCenter(centerBP);
-        pravaLista.setBottom(dolniBP);
+        pravaLista.getChildren().addAll(horniBP, centerBP, dolniBP);
         
-        borderPane.setLeft(mapa);
+        VBox mapaPane = new VBox();
+        mapaPane.getChildren().add(mapa);
+        mapaPane.setAlignment(Pos.CENTER);
+        mapaPane.setStyle("-fx-background-color: #FFFFFF");
+        mapaPane.setMargin(mapa, new Insets(10, 25, 10, 25));
+        
+        borderPane.setLeft(mapaPane);
         borderPane.setBottom(dolniLista);
         borderPane.setRight(pravaLista);
         borderPane.setTop (menuLista);
 
-        Scene scene = new Scene(borderPane, 1200, 750);
+        Scene scene = new Scene(borderPane, 1250, 800);
         primaryStage.setTitle("Adventura");
         
         primaryStage.setScene(scene);
         primaryStage.show();
         zadejPrikazTextArea.requestFocus();
+    }
+
+    public PanelVychodu getPanelVychodu() {
+        return panelVychodu;
+    }
+
+    public GUI.Batoh getBatoh() {
+        return batoh;
+    }
+
+    public VeciVProstoru getVeciVProstoru() {
+        return veciVProstoru;
     }
 
     

@@ -54,19 +54,19 @@ public class HerniPlan implements Subject {
         Prostor mocaly = new Prostor ("močály","\nTo ne! To jsou močály. Jsme v koncích!\n", 50,105);
         Prostor strasidelnaVrba = new Prostor("strašidelná_vrba","\nZajímavé místo, ale půjdme dál, není tu nic zajímavého.", 398,105);
         Prostor staraChata = new Prostor("stará_chata","\nKoukej, támhle někdo je, promluv s ním a prohledej to tu,\n"
-                                                     + "já počkám venku.\n", 211,180);
+                                                     + "já počkám venku.\n", 211,190);
         Prostor skaliska = new Prostor("skaliska","\nTady to bude o život, ale podívej, vraky aut, o kterých mluvil\n"
-                                                + "poustevník, jsou hned za tímhle štítem, tak pojďme.\n", 211,241);
-        Prostor vrakyAut = new Prostor("vraky_aut","\nMusíme to tu prohledat, jistě tu bude budou další indície!\n", 398,241);
+                                                + "poustevník, jsou hned za tímhle štítem, tak pojďme.\n", 211,285);
+        Prostor vrakyAut = new Prostor("vraky_aut","\nMusíme to tu prohledat, jistě tu bude budou další indície!\n", 398,285);
         Prostor pohrebiste = new Prostor("pohřebiště","\nO pohřebišti se zmiňoval poustevník naposled, dál však cestu\n"
                                                     + "neznal. Ale podívej se, támhle je ukazatel se směrovkami. Vydáme se do\n"
-                                                    + "tunelu, to musí být přístupová cesta do starého podzemního chrámu.\n", 50,241);
-        Prostor tunel = new Prostor("tunel","\nRychle odtud pryč, hemží se to tady havětí!\n", 50,315);
+                                                    + "tunelu, to musí být přístupová cesta do starého podzemního chrámu.\n", 50,285);
+        Prostor tunel = new Prostor("tunel","\nRychle odtud pryč, hemží se to tady havětí!\n", 50,375);
         Prostor staryPodzemniChram = new Prostor("starý_podzemní_chrám","\nDívej, to nemůže být pravda! Vypadá to tu tak prázdně,\n"
                                                                       + "musel tu být už už někdo před námi a všechno odnést.\n"
-                                                                      + "pojďme do krypty, to je naše poslední naděje.\n", 50,388);
+                                                                      + "pojďme do krypty, to je naše poslední naděje.\n", 50,470);
         Prostor krypta = new Prostor ("krypta","\nHledej všude! Tady v kryptě je mnoho skrytých míst, kde by se kalich mohl\n" 
-                                             + "nacházet. Musíme najít odpoveď na mnoho let zpochybňovaný mýtus o kalichu života.\n", 50,459);
+                                             + "nacházet. Musíme najít odpoveď na mnoho let zpochybňovaný mýtus o kalichu života.\n", 50,530);
                                        
         prostory = new HashSet<Prostor>();
         prostory.add(trnitaStezka);

@@ -18,7 +18,7 @@ import utils.Subject;
  */
 public class Batoh implements Subject{
     private Map <String, Vec> veciVBatohu;      // věci v batohu
-    private static final int MAX_OBSAH = 3;     // maximální kapacita
+    private static final int MAX_OBSAH = 4;     // maximální kapacita
 
      private List<Observer> listObserveru = new ArrayList<Observer>();
     /**

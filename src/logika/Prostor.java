@@ -223,7 +223,7 @@ public class Prostor implements Subject {
      */
     public String popisOsob() {
         String vracenyText;
-        if (veciVProstoru.values().isEmpty()){
+        if (osobyVProstoru.values().isEmpty()){
             vracenyText = "Zde nejsou žádné osoby.";
         } else {
         
@@ -260,6 +260,9 @@ public class Prostor implements Subject {
             }
             if (pocitadlo == 0) {
                 text = "Nebyly nalezeny žádné nové věci.\n";
+            }
+            else {
+             notifyObservers();
             }
         }
         return text;
