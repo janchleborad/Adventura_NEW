@@ -63,10 +63,10 @@ public class HerniPlan implements Subject {
                                                     + "tunelu, to musí být přístupová cesta do starého podzemního chrámu.\n", 50,285);
         Prostor tunel = new Prostor("tunel","\nRychle odtud pryč, hemží se to tady havětí!\n", 50,375);
         Prostor staryPodzemniChram = new Prostor("starý_podzemní_chrám","\nDívej, to nemůže být pravda! Vypadá to tu tak prázdně,\n"
-                                                                      + "musel tu být už už někdo před námi a všechno odnést.\n"
+                                                                      + "musel tu být už někdo před námi a všechno odnést.\n"
                                                                       + "pojďme do krypty, to je naše poslední naděje.\n", 50,470);
         Prostor krypta = new Prostor ("krypta","\nHledej všude! Tady v kryptě je mnoho skrytých míst, kde by se kalich mohl\n" 
-                                             + "nacházet. Musíme najít odpoveď na mnoho let zpochybňovaný mýtus o kalichu života.\n", 50,530);
+                                             + "nacházet. Musíme najít odpoveď na mnoho let zpochybňovaný mýtus o jeho existenci.\n", 50,565);
                                        
         prostory = new HashSet<Prostor>();
         prostory.add(trnitaStezka);

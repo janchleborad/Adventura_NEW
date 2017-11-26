@@ -21,7 +21,7 @@ public class Hra implements IHra {
     private boolean vyhra = false;
 
     /**
-     *  Vytváří hru a inicializuje místnosti (prostřednictvím třídy HerniPlan) a seznam platných příkazů.
+     *  Vytváří hru a inicializuje místnosti (prostřednictvím třídy HerniPlan) a seznamu platných příkazů.
      */
     public Hra() {
         herniPlan = new HerniPlan();
@@ -133,7 +133,7 @@ public class Hra implements IHra {
     /**
      * Metoda nastaví stav prohry při zabití zabijákem.
      * 
-     * @param prohraZabijjak pravda nebo nepravda pro prohru
+     * @param prohraZabijak pravda nebo nepravda pro prohru
      */ 
     public void setProhraZabijak(boolean prohraZabijak){
         this.prohraZabijak = prohraZabijak;
@@ -145,31 +145,34 @@ public class Hra implements IHra {
      *  Pokud ano spustí samotné provádění příkazu.
      *
      *@param  radek  text, který zadal uživatel jako příkaz do hry.
-     *@return          vrací se řetězec, který se má vypsat na obrazovku
+     *@return vrací se řetězec, který se má vypsat na obrazovku
      */
     public String zpracujPrikaz(String radek) {
-        String [] slova = radek.split("[ \t]+");
-        String slovoPrikazu = slova[0];
-        String []parametry = new String[slova.length-1];
-        for(int i=0 ;i<parametry.length;i++){
-            parametry[i]= slova[i+1];   
+        if (!konecHry) {
+            String [] slova = radek.split("[ \t]+");
+            String slovoPrikazu = slova[0];
+            String []parametry = new String[slova.length-1];
+            for(int i=0 ;i<parametry.length;i++){
+                parametry[i]= slova[i+1];   
+            }
+            String textKVypsani=" .... ";
+            if (platnePrikazy.jePlatnyPrikaz(slovoPrikazu)) {
+                IPrikaz prikaz = platnePrikazy.vratPrikaz(slovoPrikazu);
+                textKVypsani = prikaz.proved(parametry);
+            }
+            else {
+                textKVypsani="Nevím, co tím myslíš. Tento příkaz neznám.\n";
+            }
+            return textKVypsani;
         }
-        String textKVypsani=" .... ";
-        if (platnePrikazy.jePlatnyPrikaz(slovoPrikazu)) {
-            IPrikaz prikaz = platnePrikazy.vratPrikaz(slovoPrikazu);
-            textKVypsani = prikaz.proved(parametry);
-        }
-        else {
-            textKVypsani="Nevím, co tím myslíš. Tento příkaz neznám.\n";
-        }
-        return textKVypsani;
+        return "Pro pokračování je třeba spustit novou hru.";
     }
 
     /**
      *  Nastaví, že je konec hry, metodu využívá třída PrikazKonec,
      *  mohou ji použít i další implementace rozhraní Prikaz.
      *  
-     *  @param  konecHry  hodnota false= konec hry, true = hra pokračuje
+     *  @param  konecHry  hodnota false = hra pokračuje, true = hra končí
      */
     void setKonecHry(boolean konecHry) {
         this.konecHry = konecHry;
@@ -184,5 +187,4 @@ public class Hra implements IHra {
     public HerniPlan getHerniPlan(){
         return herniPlan;
     }
-
 }

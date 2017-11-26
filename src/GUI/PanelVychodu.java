@@ -66,8 +66,9 @@ public class PanelVychodu extends ListView implements Observer {
 
     @Override
     public void novaHra(IHra hra) {
-        this.hra.getHerniPlan().removeObserver(this);
+        this.plan.removeObserver(this);
         this.hra = hra;
+        this.plan = hra.getHerniPlan();
         plan.registerObserver(this);
         update();
     } 

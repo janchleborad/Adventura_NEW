@@ -28,15 +28,13 @@ public class VeciVProstoru extends TilePane implements Observer {
     private IHra hra;
     private TextArea centralText;
     private Collection<Vec> veciVProstoru;
-    private Batoh batoh;
 
     public VeciVProstoru(IHra hra, TextArea centralText) {
         this.hra = hra;
         this.centralText = centralText;
         this.veciVProstoru = hra.getHerniPlan().getAktualniProstor().getVeciVProstoru().values();
-        this.batoh = this.hra.getHerniPlan().getBatoh();
         
-        hra.getHerniPlan().getBatoh().registerObserver(this);
+        hra.getHerniPlan().registerObserver(this);
         hra.getHerniPlan().registerObserver(this);
         for (Prostor prostor : hra.getHerniPlan().getProstory()) {
             prostor.registerObserver(this);
@@ -78,13 +76,13 @@ public class VeciVProstoru extends TilePane implements Observer {
 
     @Override
     public void novaHra(IHra hra) {
-        hra.getHerniPlan().getBatoh().removeObserver(this);
+        hra.getHerniPlan().removeObserver(this);
         hra.getHerniPlan().removeObserver(this);
         for (Prostor prostor : hra.getHerniPlan().getProstory()) {
             prostor.removeObserver(this);
         }
         this.hra = hra;
-        hra.getHerniPlan().getBatoh().registerObserver(this);
+        hra.getHerniPlan().registerObserver(this);
         hra.getHerniPlan().registerObserver(this);
         for (Prostor prostor : hra.getHerniPlan().getProstory()) {
             prostor.registerObserver(this);

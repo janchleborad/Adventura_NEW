@@ -59,9 +59,10 @@ public class Batoh extends TilePane implements Observer {
 
     @Override
     public void novaHra(IHra hra) {
-        this.hra.getHerniPlan().removeObserver(this);
+        this.hra.getHerniPlan().getBatoh().removeObserver(this);
         this.hra = hra;
-        hra.getHerniPlan().getBatoh().registerObserver(this);
+        batoh = hra.getHerniPlan().getBatoh();
+        batoh.registerObserver(this);
         update();
     }
 }
