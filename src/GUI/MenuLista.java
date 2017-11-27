@@ -21,21 +21,34 @@ import javafx.stage.Stage;
 import logika.Hra;
 import logika.IHra;
 
-/**
+/*******************************************************************************
+ * Instance třídy MenuLista představují panel nástrojů, který se nachází v horní
+ * části okna se hrou.
+ * Obsahuje dvě dva menu soubory z nichž každý obsahuje dva meni itemy.
  *
- * @author Honysek
+ * @author    Jan Chleborád
+ * @version   1.00.000
+ * @created   listopad 2017
  */
 public class MenuLista extends MenuBar {
     
     private IHra hra;
     private Main main;
     
+    /**
+     * Konstruktor třídy.
+     * @param hra instance hry
+     * @param main instance mainu
+     */
     public MenuLista(IHra hra, Main main) {
         this.hra = hra;
         this.main = main;
         init();
     }
     
+    /**
+     * Inicializační metoda pro menu a jeho položky.
+     */
     private void init() {
     
         Menu novySoubor = new Menu("Adventura");

@@ -21,9 +21,13 @@ import logika.Hra;
 import logika.IHra;
 import logika.Prostor;
 
-/**
+/*******************************************************************************
+ * Instance třídy PanelVychodu představují seznam možných východů z aktuálního 
+ * prostoru.
  *
- * @author Honysek
+ * @author    Jan Chleborád
+ * @version   1.00.000
+ * @created   listopad 2017
  */
 public class PanelVychodu extends ListView implements Observer {
     
@@ -32,6 +36,11 @@ public class PanelVychodu extends ListView implements Observer {
     private ObservableList<String> dataVychodu;
     private TextArea centralText;
     
+    /**
+     * Konstruktor třídy.
+     * @param hra instance hry
+     * @param centralText instance centralText, kde se vypisující odpovědi
+     */
     public PanelVychodu(IHra hra, TextArea centralText) {
         this.hra = hra;
         this.plan = hra.getHerniPlan();
@@ -41,6 +50,9 @@ public class PanelVychodu extends ListView implements Observer {
         update();
     }
     
+     /**
+     * Inicializační metoda pro list východů a jeho velikost.
+     */
     private void init() {
         dataVychodu = FXCollections.observableArrayList();
         this.setItems(dataVychodu);

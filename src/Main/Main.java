@@ -26,9 +26,12 @@ import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.layout.VBox;
 
-/**
+/*******************************************************************************
+ * Main Class Adventury.
  *
- * @author Honysek
+ * @author    Jan Chleborád
+ * @version   1.00.000
+ * @created   listopad 2017
  */
 public class Main extends Application {
     
@@ -42,6 +45,10 @@ public class Main extends Application {
     private GUI.Batoh batoh;
     private VeciVProstoru veciVProstoru;
     
+    /**
+     * Metoda pro nastevení hry.
+     *@param hra instance hry
+     */
     public void setHra(IHra hra) {
         this.hra = hra;
     }

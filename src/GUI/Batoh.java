@@ -14,9 +14,13 @@ import logika.IHra;
 import logika.Vec;
 import utils.Observer;
 
-/**
+/*******************************************************************************
+ * Instance třídy Batoh představují inventář sebraných věcí.
  *
- * @author asdf
+ *
+ * @author    Jan Chleborád
+ * @version   1.00.000
+ * @created   listopad 2017
  */
 public class Batoh extends TilePane implements Observer {
 
@@ -24,6 +28,11 @@ public class Batoh extends TilePane implements Observer {
     private TextArea centralText;
     private logika.Batoh batoh;
 
+    /**
+     * Konstruktor třídy.
+     * @param hra instance hry
+     * @param centralText instance centralText, kde se vypisující odpovědi
+     */
     public Batoh(IHra hra, TextArea centralText) {
         this.hra = hra;
         this.centralText = centralText;
@@ -34,6 +43,9 @@ public class Batoh extends TilePane implements Observer {
         update();
     }
     
+    /**
+     * Inicializační metoda pro zpřehlednění konstruktoru.
+     */
     public void init(){
         this.setPadding(new Insets(10, 10, 10, 10));
         this.setVgap(10);

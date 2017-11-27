@@ -19,9 +19,13 @@ import utils.Observer;
 import logika.Batoh;
 import logika.Hra;
 
-/**
+/*******************************************************************************
+ * Instance třídy VeciVProstoru představují seznam věcí, které se nacházív 
+ * aktuální prostoru.
  *
- * @author asdf
+ * @author    Jan Chleborád
+ * @version   1.00.000
+ * @created   listopad 2017
  */
 public class VeciVProstoru extends TilePane implements Observer {
 
@@ -29,6 +33,11 @@ public class VeciVProstoru extends TilePane implements Observer {
     private TextArea centralText;
     private Collection<Vec> veciVProstoru;
 
+    /**
+     * Konstruktor třídy.
+     * @param hra instance hry
+     * @param centralText instance centralText, kde se vypisující odpovědi
+     */
     public VeciVProstoru(IHra hra, TextArea centralText) {
         this.hra = hra;
         this.centralText = centralText;
@@ -39,11 +48,13 @@ public class VeciVProstoru extends TilePane implements Observer {
         for (Prostor prostor : hra.getHerniPlan().getProstory()) {
             prostor.registerObserver(this);
         }
-        
         init();
         update();
     }
     
+    /**
+     * Inicializační metoda pro zpřehlednění.
+     */
     public void init(){
         this.setPadding(new Insets(10, 10, 10, 10));
         this.setVgap(10);
