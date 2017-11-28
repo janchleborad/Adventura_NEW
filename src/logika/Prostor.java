@@ -125,8 +125,8 @@ public class Prostor implements Subject {
     }
 
     /**
-     * Vrací název prostoru (byl zadán při vytváření prostoru jako parametr.
-     * konstruktoru)
+     * Vrací název prostoru (byl zadán při vytváření prostoru jako parametr
+     * konstruktoru).
      *
      * @return název prostoru
      */

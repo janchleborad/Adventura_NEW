@@ -37,6 +37,10 @@ public class Hra implements IHra {
         platnePrikazy.vlozPrikaz(new PrikazMluv(herniPlan));
         platnePrikazy.vlozPrikaz(new PrikazBojuj(herniPlan, this));
     }
+
+    public SeznamPrikazu getPlatnePrikazy() {
+        return platnePrikazy;
+    }
     
     /**
      *  Vrátí úvodní zprávu pro hráče.
